@@ -7,14 +7,14 @@ assignees: ''
 
 ---
 
-##Description
+## Description
 <br>
 <!-- 기능 설명 해주세용 -->
 
-##ToDo
+## ToDo
 <br>
 <!-- 해야할 일 써주세용 -->
  - [ ] todo
  - [ ] todo
 
-##etc
+## etc
