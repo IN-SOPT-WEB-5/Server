@@ -15,7 +15,5 @@ assignees: ''
 <br>
 <!-- 해야할 일 써주세용 -->
  - [ ] todo
-<br/>
- - [ ] todo
 
 ## ☑️ etc
