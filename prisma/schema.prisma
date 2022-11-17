@@ -26,17 +26,17 @@ model cinema {
   cinemaRegion String     @db.VarChar(10)
   cinemaState  String     @db.VarChar(10)
   cinemaName   String?    @db.VarChar(20)
-  screening    screening?
+  screening    screening? @relation("movieToscreening")
   theater      theater?
 }
 
 model screening {
-  id        Int        @id @default(autoincrement())
-  time      String     @db.VarChar(20)
-  date      DateTime   @db.Date
-  cinema    cinema     @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_cinema_id_fk")
-  movie     movie      @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_movie_id_fk")
-  ticketing ticketing?
+  id                     Int        @id @default(autoincrement())
+  time                   String     @db.VarChar(20)
+  date                   DateTime   @db.Date
+  movie_movieToscreening cinema     @relation("movieToscreening", fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_cinema_id_fk")
+  movie_movieToscreening movie      @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_movie_id_fk")
+  ticketing              ticketing?
 }
 
 model theater {
@@ -46,11 +46,11 @@ model theater {
 }
 
 model ticketing {
-  id              Int       @id @default(autoincrement())
-  reservationDate DateTime  @db.Date
-  amount          Int
-  screening       screening @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticketing_screening_id_fk")
-  user            user      @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticketing_user_id_fk")
+  id                             Int       @id @default(autoincrement())
+  reservationDate                DateTime  @db.Date
+  amount                         Int
+  screening_screeningToticketing screening @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticketing_screening_id_fk")
+  screening_screeningToticketing user      @relation("screeningToticketing", fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticketing_user_id_fk")
 }
 
 model user {
@@ -61,5 +61,14 @@ model user {
   email       String?    @db.VarChar(50)
   phoneNumber String     @db.VarChar(50)
   birthday    DateTime   @db.Date
-  ticketing   ticketing?
+  ticketing   ticketing? @relation("screeningToticketing")
+}
+
+model curationMedia {
+  id              Int     @id @default(autoincrement())
+  title           String  @db.VarChar(100)
+  image           String  @db.VarChar(400)
+  description     String? @db.VarChar(400)
+  screeningPeriod String  @db.VarChar(50)
+  type            Int
 }
