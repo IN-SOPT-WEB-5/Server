@@ -27,10 +27,9 @@ model CurationMedia {
 
 model Movie {
   id          Int         @id @unique @default(autoincrement())
-  title       String      @db.VarChar(40)
+  movieTitle  String      @unique @db.VarChar(40)
   image       String      @db.VarChar(400)
   description String?     @db.VarChar(400)
-  runningTime Int
   ageLimit    Int
   openingDate DateTime    @db.Date
   advanceRate Float?
@@ -42,7 +41,7 @@ model Movie {
 model Screening {
   id        Int         @id @default(autoincrement())
   time      String      @db.VarChar(20)
-  date      DateTime    @db.Date
+  date      String      @db.VarChar(40)
   movieId   Int
   cinemaId  Int
   cinema    Cinema      @relation(fields: [cinemaId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_cinema_id_fk")
@@ -59,7 +58,7 @@ model Theater {
 
 model Ticketing {
   id              Int       @id @default(autoincrement())
-  reservationDate String
+  reservationDate String    @db.VarChar(40)
   amount          Int
   userId          Int
   screenId        Int
