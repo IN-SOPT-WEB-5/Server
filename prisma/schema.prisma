@@ -7,7 +7,73 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model movie {
-  id    Int     @id @default(autoincrement())
-  title String? @db.VarChar(40)
+model Cinema {
+  id           Int         @id @default(autoincrement())
+  cinemaRegion String      @db.VarChar(10)
+  cinemaState  String      @db.VarChar(10)
+  cinemaName   String?     @db.VarChar(20)
+  Screening    Screening[]
+  Theater      Theater[]
+}
+
+model CurationMedia {
+  id              Int     @id @default(autoincrement())
+  title           String  @db.VarChar(100)
+  image           String  @db.VarChar(400)
+  description     String? @db.VarChar(400)
+  screeningPeriod String  @db.VarChar(50)
+  type            String
+}
+
+model Movie {
+  id          Int         @id @unique @default(autoincrement())
+  movieTitle  String      @unique @db.VarChar(40)
+  image       String      @db.VarChar(400)
+  description String?     @db.VarChar(400)
+  ageLimit    Int
+  openingDate DateTime    @db.Date
+  advanceRate Float?
+  movieRating Float?
+  rank        Int?
+  Screening   Screening[]
+}
+
+model Screening {
+  id        Int         @id @default(autoincrement())
+  time      String      @db.VarChar(20)
+  date      String      @db.VarChar(40)
+  movieId   Int
+  cinemaId  Int
+  Cinema    Cinema      @relation(fields: [cinemaId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_cinema_id_fk")
+  Movie     Movie       @relation(fields: [movieId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_movie_id_fk")
+  Ticketing Ticketing[]
+
+}
+
+model Theater {
+  id       Int     @id @default(autoincrement())
+  name     String? @db.VarChar(20)
+  cinemaId Int
+  Cinema   Cinema  @relation(fields: [cinemaId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "theater_cinema_id_fk")
+}
+
+model Ticketing {
+  id              Int       @id @default(autoincrement())
+  reservationDate String    @db.VarChar(40)
+  amount          Int
+  userId          Int
+  screenId        Int
+  Screening       Screening @relation(fields: [screenId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticketing_screening_id_fk")
+  User            User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticketing_user_id_fk")
+}
+
+model User {
+  id          Int         @id @default(autoincrement())
+  name        String
+  userLoginId String      @unique(map: "user_userId_key") @db.VarChar(20)
+  password    String      @db.VarChar(20)
+  email       String?     @db.VarChar(50)
+  phoneNumber String      @db.VarChar(50)
+  birthday    DateTime    @db.Date
+  Ticketing   Ticketing[]
 }
