@@ -6,7 +6,13 @@ const PORT = 3000; // 사용할 port를 3000번으로 설정
 
 app.use(express.json()); // express 에서 request body를 json 으로 받아오겠다.
 
-app.use(router);
+
+app.use("/", router);
+
+//* HTTP method - GET
+app.get("/", (req: Request, res: Response, next: NextFunction) => {
+  res.send("5gaBox 서버 연결");
+});
 
 app.listen(PORT, () => {
   console.log(`
