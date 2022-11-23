@@ -1,2 +1,2 @@
 export { default as movieService } from "./movieService";
-//export { default as userService } from "./userService";
+export { default as rankService } from "./rankService";
