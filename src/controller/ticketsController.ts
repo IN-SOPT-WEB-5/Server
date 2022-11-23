@@ -17,10 +17,10 @@ const createTicket = async (req: Request, res: Response) => {
     const data = await ticketsService.createTicket(userId , title, cinemaRegion, cinemaState, date, time, +amount);
         
     if (!data) {
-        return res.status(400).json({ status: 400, message: "유저 생성 실패" });
+        return res.status(400).json({ status: 400, message: "예매 내역 생성 실패" });
     }
         
-    return res.status(200).json({ status: 200, message: "유저 생성 성공", data });
+    return res.status(200).json({ status: 200, message: "예매 내역 생성 성공", data });
 };
 
 const ticketsController = {
