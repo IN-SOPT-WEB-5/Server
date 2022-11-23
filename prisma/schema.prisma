@@ -12,8 +12,8 @@ model Cinema {
   cinemaRegion String      @db.VarChar(10)
   cinemaState  String      @db.VarChar(10)
   cinemaName   String?     @db.VarChar(20)
-  screening    Screening[]
-  theater      Theater[]
+  Screening    Screening[]
+  Theater      Theater[]
 }
 
 model CurationMedia {
@@ -35,7 +35,7 @@ model Movie {
   advanceRate Float?
   movieRating Float?
   rank        Int?
-  screening   Screening[]
+  Screening   Screening[]
 }
 
 model Screening {
@@ -44,16 +44,17 @@ model Screening {
   date      String      @db.VarChar(40)
   movieId   Int
   cinemaId  Int
-  cinema    Cinema      @relation(fields: [cinemaId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_cinema_id_fk")
-  movie     Movie       @relation(fields: [movieId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_movie_id_fk")
-  ticketing Ticketing[]
+  Cinema    Cinema      @relation(fields: [cinemaId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_cinema_id_fk")
+  Movie     Movie       @relation(fields: [movieId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_movie_id_fk")
+  Ticketing Ticketing[]
+
 }
 
 model Theater {
   id       Int     @id @default(autoincrement())
   name     String? @db.VarChar(20)
   cinemaId Int
-  cinema   Cinema  @relation(fields: [cinemaId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "theater_cinema_id_fk")
+  Cinema   Cinema  @relation(fields: [cinemaId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "theater_cinema_id_fk")
 }
 
 model Ticketing {
@@ -62,8 +63,8 @@ model Ticketing {
   amount          Int
   userId          Int
   screenId        Int
-  screening       Screening @relation(fields: [screenId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticketing_screening_id_fk")
-  user            User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticketing_user_id_fk")
+  Screening       Screening @relation(fields: [screenId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticketing_screening_id_fk")
+  User            User      @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ticketing_user_id_fk")
 }
 
 model User {
@@ -74,5 +75,5 @@ model User {
   email       String?     @db.VarChar(50)
   phoneNumber String      @db.VarChar(50)
   birthday    DateTime    @db.Date
-  ticketing   Ticketing[]
+  Ticketing   Ticketing[]
 }
