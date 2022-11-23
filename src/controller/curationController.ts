@@ -7,10 +7,10 @@ const getAllCuration = async (req: Request, res: Response) => {
     const data = await curationService.getAllCuration();
         
     if (!data) {
-        return res.status(400).json({ status: 400, message: "예매 내역 생성 실패" });
+        return res.status(400).json({ status: 400, message: "큐레이션 작품 조회 실패" });
     }
         
-    return res.status(200).json({ status: 200, message: "예매 내역 생성 성공", data });
+    return res.status(200).json({ status: 200, message: "큐레이션 조회 성공", data });
 };
 
 const curationController = {
