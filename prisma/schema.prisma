@@ -47,6 +47,7 @@ model Screening {
   Cinema    Cinema      @relation(fields: [cinemaId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_cinema_id_fk")
   Movie     Movie       @relation(fields: [movieId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "screening_movie_id_fk")
   Ticketing Ticketing[]
+
 }
 
 model Theater {
