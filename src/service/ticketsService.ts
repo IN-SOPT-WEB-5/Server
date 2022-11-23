@@ -34,12 +34,12 @@ const createTicket = async (userId: string , title: string , cinemaRegion: strin
     data: {
       reservationDate: date,
       amount,
-      user: {
+      User: {
         connect : {
           userLoginId: userId
         }
       },
-      screening : {
+      Screening : {
         connect : {
           id: screening?.id
         },
