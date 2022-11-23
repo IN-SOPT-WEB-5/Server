@@ -44,6 +44,7 @@ const createTicket = async (userId: string , title: string , cinemaRegion: strin
           id: screening?.id
         },
         }
+
       }
     });
 
