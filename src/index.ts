@@ -6,8 +6,13 @@ const PORT = 3000; // 사용할 port를 3000번으로 설정
 
 app.use(express.json()); // express 에서 request body를 json 으로 받아오겠다.
 
-
-app.use("/", router);
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS, PUT, POST');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true'); });
+  
+  app.use("/", router);
 
 //* HTTP method - GET
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
